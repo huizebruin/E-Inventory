@@ -7,3 +7,32 @@ With this system, users can add, edit, and delete components, as well as track t
 W.E.W.M.S is designed to be user-friendly, with a simple and intuitive interface that makes it easy to manage your electronic components and keep your warehouse running smoothly.
 
 W.E.W.M.S is a MIT project and was created with the contribution of Said, Marco, Remco, and Lars.
+
+
+# Installation
+* Clone the repo
+* pip install -r requirements.txt
+* If you already have a database, Move it to the main directory.
+* Run app.py
+* On this moment unable te make a exe file for windows.
+
+# Some screenshots
+<br>
+Home screen<br>
+
+![image](https://user-images.githubusercontent.com/62996429/235159498-63604f92-2903-44ac-a461-74dbc1356998.png)
+
+<br> Add component screen
+
+![image](https://user-images.githubusercontent.com/62996429/235159723-bb774e79-8471-4255-9d42-30db7d295ae0.png)
+
+<br> Notification screen<br>
+
+![image](https://user-images.githubusercontent.com/62996429/235159848-02f959f5-85cc-4b3d-8f53-1486810375ca.png)
+
+<br> About screen <br>
+
+![image](https://user-images.githubusercontent.com/62996429/235159951-27b5970a-1477-426b-8608-2afcc3c16ccc.png)
+
+<br>
+
