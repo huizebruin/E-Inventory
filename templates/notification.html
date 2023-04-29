@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main><br><br>
+<h6>Low Stock Components</h6>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+                <th>Quantity</th>
+                <th>Location</th>
+                <th>Last Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for component in low_stock_components %}
+            <tr>
+                <td>{{ component[1] }}</td>
+                <td><a href="{{ component[2] }}" target="_blank"> Buy Again </a></td>
+                {% if component[3] < 5 %}
+                        <td style="color:red"><b>{{ component[3] }}</b></td>
+                    {% else %}
+                        <td><b>{{ component[3] }}</b></td>
+                    {% endif %}
+                <td>{{ component[4] }}</td>
+                <td>{{ component[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<table>
+
+</main>
+
+{% endblock %}

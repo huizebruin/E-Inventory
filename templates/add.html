@@ -1,0 +1,25 @@
+
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <h5>Add Component</h5>
+    <form method="POST" action="{{ url_for('add_component') }}">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+        <br>
+        <label for="link">Link:</label>
+        <input type="url" name="link" id="link">
+        <br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" required>
+        <br>
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" required>
+        <br>
+        <label for="info">Info:</label>
+        <input type="text" name="info" id="info" >
+        <br><br>
+        <input type="submit" value="Add Component">
+    </form>
+    {% endblock %}
+

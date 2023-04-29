@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="search-box">Search components:</label>
+            <input type="text" class="form-control" id="search-box" placeholder="Enter component name" >
+        </div> 
+                <table class="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Link</th>
+                            <th>Quantity</th>
+                            <th>Info</th>
+                            <th>Location</th>
+                            <th>Documentation</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="component-table">
+                        {% for component in components %}
+                        <tr>
+                            <td>{{ component[1] }}</td>
+                            <td><a href="{{ component[2] }}" target="_blank">Buy again</a></td>
+                            {% if component[3] < 5 %}
+                        <td style="color:red"><b>{{ component[3] }}</b></td>
+                    {% else %}
+                        <td><b>{{ component[3] }}</b></td>
+                    {% endif %}
+                            {% if component[5] is not none %}
+                            <td>{{ component[5] }}</td>
+                            {% else %}
+                            <td></td>
+                            {% endif %}
+                            <td><b>{{ component[4] }}</b></td>
+                            <td><a href="{{ component[6] }}" target="_blank">Documentation</a></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Actions">
+                                <a href="{{ url_for('update_component', id=component[0]) }}" class="btn btn-primary btn-sm mr-1">Edit</a>
+                                <a href="{{ url_for('delete_component', id=component[0]) }}" class="btn btn-danger btn-sm mr-1">Delete</a>
+                                <a href="{{ url_for('add_quantity', id=component[0]) }}" class="btn btn-success btn-sm mr-1">+</a>
+                                <a href="{{ url_for('remove_quantity', id=component[0]) }}" class="btn btn-warning btn-sm">-</a>
+                            </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Alphabetic mode
+        var searchBox = document.getElementById('search-box');
+        searchBox.addEventListener('input', function() {
+            var query = searchBox.value.toLowerCase();
+            var rows = document.getElementById('component-table').rows;
+            for (var i = 0; i < rows.length; i++) {
+                var name = rows[i].cells[0].innerHTML.toLowerCase();
+                if (name.indexOf(query) === -1) {
+                    rows[i].style.display = 'none';
+                } else {
+                    rows[i].style.display = '';
+                }
+            }
+        });
+ 
+</script>
+
+
+    {% endblock %}
