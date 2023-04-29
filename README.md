@@ -1,6 +1,6 @@
 # E-Inventory
-About E-Inventory
-E-Inventory ( Electronics Warehouse Management System) is a web-based system designed to help manage electronic components in a warehouse setting.
+About E-Inventory<br>
+( Electronics Warehouse Management System) is a web-based system designed to help manage electronic components in a warehouse setting.
 
 With this system, users can add, edit, and delete components, as well as track their current stock levels and set notifications for when stock levels get low.
 
