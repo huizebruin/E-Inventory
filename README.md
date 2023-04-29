@@ -26,19 +26,19 @@ mayby sone day a translater on it so every one can read it in there own language
 <br>
 Home screen<br>
 
-![image](https://user-images.githubusercontent.com/62996429/235159498-63604f92-2903-44ac-a461-74dbc1356998.png)
+![image](https://user-images.githubusercontent.com/62996429/235307589-85000c2c-afc9-416c-a11e-7b3108ba9264.png)
+
 
 <br> Add component screen
 
-![image](https://user-images.githubusercontent.com/62996429/235159723-bb774e79-8471-4255-9d42-30db7d295ae0.png)
+![image](https://user-images.githubusercontent.com/62996429/235307618-87b74d35-8f5a-416b-8e51-6072dc232787.png)
 
 <br> Notification screen<br>
 
-![image](https://user-images.githubusercontent.com/62996429/235159848-02f959f5-85cc-4b3d-8f53-1486810375ca.png)
+![image](https://user-images.githubusercontent.com/62996429/235307641-de788ad1-4e57-4091-a81e-2b748d175bb1.png)
 
 <br> About screen <br>
 
-![image](https://user-images.githubusercontent.com/62996429/235159951-27b5970a-1477-426b-8608-2afcc3c16ccc.png)
-
+![image](https://user-images.githubusercontent.com/62996429/235307659-3e916f65-7b69-4f7a-b546-b21cc1dca94c.png)
 <br>
 
