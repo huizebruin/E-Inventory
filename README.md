@@ -10,7 +10,10 @@ W.E.W.M.S is a MIT project and was created with the contribution of Said, Marco,
 
 
 # Installation
-* Clone the repo
+* Clone the repo for helping it getting bigger.
+* Download the zip from github.
+* Unpack it
+* Install pyhon above 3.10
 * pip install -r requirements.txt
 * If you already have a database, Move it to the main directory.
 * Run app.py
