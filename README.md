@@ -20,6 +20,9 @@ W.E.W.M.S is a MIT project and was created with the contribution of Said, Marco,
 * On this moment unable te make a exe file for windows.
 
 # Some screenshots
+Screenshots are dutch but translated the hole project to English.
+mayby sone day a translater on it so every one can read it in there own language.
+
 <br>
 Home screen<br>
 
