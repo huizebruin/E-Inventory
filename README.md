@@ -1,10 +1,10 @@
 # E-Inventory
 About E-Inventory<br>
-( Electronics Warehouse Management System) is a web-based system designed to help manage electronic components in a warehouse setting.
+E-Inventory is a home inventory system that helps you keep track of all your parts. It was developed by Huizebruin using AI, Flask, and Python. With E-Inventory, you can easily see which parts you have in stock, where you ordered them from, and even find documentation.
 
-With this system, users can add, edit, and delete components, as well as track their current stock levels and set notifications for when stock levels get low.
+The system is designed to make it easy to add and subtract parts from your inventory. Additionally, it offers notifications for parts that are less than 10 in quantity at their location. Here's a fun message to remind you when it's time to restock your inventory:
 
-E-Inventory is designed to be user-friendly, with a simple and intuitive interface that makes it easy to manage your electronic components and keep your warehouse running smoothly.
+"Hey there! It's time to restock your inventory! Don't forget to take a look at your E-Inventory to see which parts are running low. This way, you can always have enough parts on hand to complete any project!"
 
 E-Inventory is a MIT project and was created with the contribution of Said, Marco, Remco, and Lars.
 
