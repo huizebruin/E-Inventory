@@ -2,20 +2,17 @@
 
 {% block title %}About - W.E.W.M.S{% endblock %}
 
-{% block content %}
-<div class="container"><br>
-  <div class="jumbotron">
-    <h1 class="display-4">About E-Inventory</h1>
-    <p class="lead">E-Inventory (Electronics Warehouse Management System) is a web-based system designed to help manage electronic components in a warehouse setting.</p>
-    <hr class="my-4">
-    <p>With this system, users can add, edit, and delete components, as well as track their current stock levels and set notifications for when stock levels get low.</p>
-    <p>E-Inventory is designed to be user-friendly, with a simple and intuitive interface that makes it easy to manage your electronic components and keep your warehouse running smoothly.</p>
-    <p>E-Inventory is a MIT project and was created with the contribution of Said, Marco, Remco, and Lars.</p>
-    <div class="text-center">
-      <img src="/static/images/icon.png" alt="W.E.W.M.S Logo" width="200">
-    </div>
-    <p>For the source code, please visit our <a href="https://github.com/huizebruin/E-Inventory" target="_blank" rel="noopener">GitHub repository</a>.</p>
-    <p>For more information about our team and our other projects, please visit our website at <a href="https://www.huizebruin.nl" target="_blank" rel="noopener">huizebruin.nl</a>.</p>
-  </div>
-</div>
+{% block content %}<br>
+	<h1>About E-Inventory</h1>
+	<p>E-Inventory is a home inventory system that helps you keep track of all your parts. It was developed by Huizebruin using AI, Flask, and Python. With E-Inventory, you can easily see which parts you have in stock, where you ordered them from, and even find documentation.</p>
+	<p>The system is designed to make it easy to add and subtract parts from your inventory. Additionally, it offers notifications for parts that are less than 10 in quantity at their location. Here's a fun message to remind you when it's time to restock your inventory:</p>
+	<blockquote>
+		<p>"Hey there! It's time to restock your inventory! Don't forget to take a look at your E-Inventory to see which parts are running low. This way, you can always have enough parts on hand to complete any project!"</p>
+	</blockquote>
+	<p>E-Inventory is a MIT project and was created with the contribution of Said, Marco, Remco, and Lars.</p>
+	<div>
+		<img src="{{ url_for('static', filename='/images/e-inventory-logo.png') }}" alt="E-Inventory Logo">
+	</div>
+	<p>For the source code, please visit our <a href="https://github.com/huizebruin/e-inventory">GitHub repository</a>.</p>
+	<p>For more information about our team and our other projects, please visit our website at <a href="https://huizebruin.nl">huizebruin.nl</a>.</p>
 {% endblock %}

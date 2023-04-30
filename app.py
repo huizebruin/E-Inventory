@@ -6,6 +6,7 @@ import time,datetime
 
 app = Flask(__name__)
 db_file = 'components.db'
+version = "1.0.5"  # define version variable
 
 def create_table():
     conn = sqlite3.connect(db_file)
@@ -30,8 +31,19 @@ def index():
     c.execute('SELECT * FROM components ORDER BY name ASC')
     components = c.fetchall()
     conn.close()
-    version = "1.0.4"  # define version variable
-    return render_template('index.html', components=components, version=version)
+    return render_template('index.html', components=components)
+
+
+def get_version():
+    return (version) # Replace with your version number
+
+@app.context_processor
+def inject_version():
+    return dict(version=get_version())
+    
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -129,10 +141,7 @@ def low_inventory():
     connection.close()
     # return jsonify(num_low_inventory=num_low_inventory)
 
-# @app.route('/')
-# def index():
-#     # render base.html template and pass version number to footer.html template
-#     return render_template('base.html', version=version)
+
 
 
 
