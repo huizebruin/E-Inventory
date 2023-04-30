@@ -24,7 +24,7 @@
                         {% for component in components %}
                         <tr>
                             <td>{{ component[1] }}</td>
-                            <td><a href="{{ component[2] }}" target="_blank">Buy again</a></td>
+                            <td><a href="{{ component[2] }}" rel="noreferrer" target="_blank">Buy again</a></td>
                             {% if component[3] < 5 %}
                         <td style="color:red"><b>{{ component[3] }}</b></td>
                     {% else %}
