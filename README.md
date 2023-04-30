@@ -1,3 +1,5 @@
+![image](https://github.com/huizebruin/E-Inventory/blob/c83cb22340e3007ff446083cc1a54936f50b14e8/static/images/icon.png)
+
 # E-Inventory
 About E-Inventory<br>
 E-Inventory is a home inventory system that helps you keep track of all your parts. It was developed by Huizebruin using AI, Flask, and Python. With E-Inventory, you can easily see which parts you have in stock, where you ordered them from, and even find documentation.
