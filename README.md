@@ -19,9 +19,14 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 * Run app.py
 * On this moment unable te make a exe file for windows.
 
+#Features
+
+* exe file for windows so it's easy to start with E-Inventory
+* translation to other languages 
+* option to send a mail with notification for low stock off unit's.
+
+
 # Some screenshots
-Screenshots are dutch but translated the hole project to English.
-mayby sone day a translater on it so every one can read it in there own language.
 
 <br>
 Home screen<br>
