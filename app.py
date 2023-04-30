@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 import time,datetime
-from flask import jsonify, request
+# from flask import jsonify, request
 
 
 app = Flask(__name__)
@@ -30,7 +30,9 @@ def index():
     c.execute('SELECT * FROM components ORDER BY name ASC')
     components = c.fetchall()
     conn.close()
-    return render_template('index.html', components=components)
+    version = "1.0.4"  # define version variable
+    return render_template('index.html', components=components, version=version)
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_component():
@@ -125,7 +127,12 @@ def low_inventory():
     cursor.execute('SELECT COUNT(*) FROM inventory WHERE quantity < 10')
     num_low_inventory = cursor.fetchone()[0]
     connection.close()
-    return jsonify(num_low_inventory=num_low_inventory)
+    # return jsonify(num_low_inventory=num_low_inventory)
+
+# @app.route('/')
+# def index():
+#     # render base.html template and pass version number to footer.html template
+#     return render_template('base.html', version=version)
 
 
 

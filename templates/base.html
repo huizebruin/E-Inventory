@@ -37,11 +37,8 @@
         
         {% endblock %}
     </div>
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">&copy; 2023-{{ current_year }} Huizebruin.nl Version: V23.04.4 {{ version_number }} </span><br>
-            </div>
-    </footer>
+{% include 'footer.html' %}
+
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
 
