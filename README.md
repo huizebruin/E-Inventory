@@ -19,7 +19,7 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 * Run app.py
 * On this moment unable te make a exe file for windows.
 
-#Features
+# Features
 
 * exe file for windows so it's easy to start with E-Inventory
 * translation to other languages 
