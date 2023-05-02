@@ -3,9 +3,11 @@
 {% block content %}
 <br><br>
 <h6>Low Stock Components</h6><br>
-"Hey there! It's time to restock your inventory! <br>
-Don't forget to take a look at your E-Inventory to see which parts are running low.<br>
- This way, you can always have enough parts on hand to complete any project!""<br>
+"Hey there! It's time to restock your inventory!" <br>
+
+<br>
+{% if low_stock_components_1 %}
+    <h6>Low Stock (1-5) parts are running low order soon.</h6>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -17,23 +19,51 @@ Don't forget to take a look at your E-Inventory to see which parts are running l
             </tr>
         </thead>
         <tbody>
-            {% for component in low_stock_components %}
+            {% for component in low_stock_components_1|sort(attribute='3') %}
             <tr>
                 <td>{{ component[1] }}</td>
                 <td><a href="{{ component[2] }}" rel="noreferrer" target="_blank"> Buy Again </a></td>
                 {% if component[3] < 5 %}
-                        <td style="color:red"><b>{{ component[3] }}</b></td>
-                    {% else %}
-                        <td><b>{{ component[3] }}</b></td>
-                    {% endif %}
+                    <td style="color:red"><b>{{ component[3] }}</b></td>
+                {% else %}
+                    <td><b>{{ component[3] }}</b></td>
+                {% endif %}
                 <td>{{ component[4] }}</td>
                 <td>{{ component[6] }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-<table>
+{% endif %}
 
-
+{% if low_stock_components_2 %}
+    <h6>Low Stock (6-10)</h6>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+                <th>Quantity</th>
+                <th>Location</th>
+                <th>Last Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for component in low_stock_components_2|sort(attribute='3') %}
+            <tr>
+                <td>{{ component[1] }}</td>
+                <td><a href="{{ component[2] }}" rel="noreferrer" target="_blank"> Buy Again </a></td>
+                {% if component[3] < 5 %}
+                    <td style="color:red"><b>{{ component[3] }}</b></td>
+                {% else %}
+                    <td><b>{{ component[3] }}</b></td>
+                {% endif %}
+                <td>{{ component[4] }}</td>
+                <td>{{ component[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
 
 {% endblock %}
