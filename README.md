@@ -27,13 +27,14 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 
 docker info
 
-[https://hub.docker.com/r/huizebruin/e-inventory](https://hub.docker.com/r/huizebruin/e-inventory){:target="_blank"}
+<a href="https://hub.docker.com/r/huizebruin/e-inventory" target="_blank">https://hub.docker.com/r/huizebruin/e-inventory</a>
+
 To use this image, you can follow these general steps:
 
 Install Docker on your system if it's not already installed.
 You can download Docker Desktop for Windows from the Docker website at 
+
 <a href="https://www.docker.com/products/docker-desktop" target="_blank">https://www.docker.com/products/docker-desktop</a>
-[https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop){:target="_blank"}
 
 
 Open a command prompt or terminal window and run the following command to pull the E-Inventory Docker image from Docker Hub:
