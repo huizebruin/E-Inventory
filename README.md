@@ -25,6 +25,29 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 ``` docker pull huizebruin/e-inventory:latest ```
 * Port 5000 extern and 5000 internal
 
+docker info
+https://hub.docker.com/r/huizebruin/e-inventory
+
+To use this image, you can follow these general steps:
+
+Install Docker on your system if it's not already installed.
+You can download Docker Desktop for Windows from the Docker website at 
+
+[https://www.docker.com/products/docker-desktop.](<a href="https://www.docker.com/products/docker-desktop." target="_blank"></a>)
+
+Open a command prompt or terminal window and run the following command to pull the E-Inventory Docker image from Docker Hub:
+
+```docker pull huizebruin/e-inventory```
+Once the image is downloaded, you can run a Docker container using the following command:
+
+```docker run -p 5000:5000 huizebruin/e-inventory```
+This command maps port 5000 inside the container to port 5000 on the host (in this case, Windows 10).
+
+Once the container is running, you should be able to access the E-Inventory application by navigating to ```http://localhost:5000``` in your web browser.
+
+
+
+
 # Features
 
 * exe file for windows so it's easy to start with E-Inventory
