@@ -21,6 +21,10 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 * Run app.py
 * On this moment unable te make a exe file for windows.
 
+## docker image 
+``` docker pull huizebruin/e-inventory:latest ```
+* Port 5000 extern and 5000 internal
+
 # Features
 
 * exe file for windows so it's easy to start with E-Inventory
