@@ -5,7 +5,7 @@ import platform, flask
 
 app = Flask(__name__)
 db_file = 'components.db'
-version = "1.0.6"  # define version variable
+version = "1.0.7"  # define version variable
 
 def create_table():
     conn = sqlite3.connect(db_file)
