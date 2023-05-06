@@ -116,6 +116,32 @@
         }
     }
 </script>
+<script>
+    // Function to filter the table rows based on search input
+    function filterTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-box");
+        filter = input.value.toLowerCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows and hide those that don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0]; // Assuming the component name is in the first column
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    // Add event listener to the search box
+    document.getElementById("search-box").addEventListener("input", filterTable);
+</script>
 
 
 
