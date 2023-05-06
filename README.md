@@ -28,9 +28,75 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 * pip install -r requirements.txt
 * If you already have a database, Move it to the main directory.
 * Run app.py
-* On this moment unable te make a exe file for windows.
 
-## docker image 
+# installation on windows.
+
+To install and run the E-Inventory application on Windows, follow these steps:
+
+Prerequisites:
+
+Make sure you have Python installed on your Windows system. 
+You can download Python from the official website: 
+<a href="https://www.python.org/downloads/" target="_blank">https://www.python.org/downloads/</a>
+
+During the installation process, make sure to select the option "Add Python to PATH" to ensure Python is accessible from the command prompt.
+Clone the Repository:
+
+Open the command prompt (CMD) on your Windows system.
+
+Navigate to the directory where you want to clone the E-Inventory repository.
+
+Run the following command to clone the repository:
+
+```git clone https://github.com/huizebruin/E-Inventory.git```
+
+Set Up Virtual Environment (Optional but Recommended):
+
+Change your directory to the cloned repository:
+
+```cd E-Inventory```
+
+Create a virtual environment:
+
+``` python -m venv venv```
+
+Activate the virtual environment:
+
+## For Command Prompt
+``` venv\Scripts\activate.bat ```
+
+## For PowerShell
+``` venv\Scripts\Activate.ps1 ```
+
+Install Dependencies:
+
+Ensure you are in the root directory of the cloned repository (E-Inventory).
+
+Run the following command to install the required dependencies:
+
+```pip install -r requirements.txt```
+
+Run the Application:
+
+After the dependencies are installed, you can start the application.
+
+In the command prompt, run the following command:
+
+```python app.py```
+
+The E-Inventory application should now be running. Open a web browser and visit <a href="http://localhost:5000" target="_blank">http://localhost:5000</a>  to access the application.
+
+Running the Application on Boot (Windows):
+
+To automatically start the E-Inventory application on boot, you can create a shortcut to the app.py file and place it in the Windows Startup folder.
+Press Win + R on your keyboard to open the Run dialog box.
+Type shell:startup and click OK. This will open the Windows Startup folder.
+In the Startup folder, right-click and select "New" > "Shortcut".
+In the "Create Shortcut" dialog box, browse to the location of the app.py file in the cloned repository (E-Inventory). Click Next.
+Enter a name for the shortcut (e.g., E-Inventory) and click Finish.
+The shortcut will now be added to the Startup folder, and the E-Inventory application will run automatically on boot.
+
+# Docker image 
 ``` docker pull huizebruin/e-inventory:latest ```
 * Port 5000 extern and 5000 internal ( external port may be changed but the internal not)
 
@@ -54,7 +120,7 @@ Once the image is downloaded, you can run a Docker container using the following
 ```docker run -p 5000:5000 huizebruin/e-inventory```
 This command maps port 5000 inside the container to port 5000 on the host (in this case, Windows 10).
 
-Once the container is running, you should be able to access the E-Inventory application by navigating to ```http://localhost:5000``` in your web browser.
+Once the container is running, you should be able to access the E-Inventory application by navigating to <a href="http://localhost:5000" target="_blank">http://localhost:5000</a>  in your web browser.
 
 
 
