@@ -10,26 +10,26 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ url_for('index') }}">&nbsp;&nbsp;E-Inventory</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('index') }}">Home </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('add_component') }}">Add Component</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('notification') }}">Notifications</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('about') }}">About</a>
-        </li>
-        </ul>
-    </div>
+        <a class="navbar-brand" href="{{ url_for('index') }}">&nbsp;&nbsp;E-Inventory</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_component') }}">Add Component</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('notification') }}">Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container mt-4">
@@ -37,10 +37,18 @@
         
         {% endblock %}
     </div>
-{% include 'footer.html' %}
+
+    {% include 'footer.html' %}
 
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-
+    <script>
+    $(document).ready(function(){
+        // Initialize Bootstrap components
+        $('.navbar-toggler').click(function(){
+            $('.navbar-collapse').toggleClass('show');
+        });
+    });
+</script>
 </body>
 </html>
