@@ -96,6 +96,95 @@ In the "Create Shortcut" dialog box, browse to the location of the app.py file i
 Enter a name for the shortcut (e.g., E-Inventory) and click Finish.
 The shortcut will now be added to the Startup folder, and the E-Inventory application will run automatically on boot.
 
+# To install and run the E-Inventory application on Linux, follow these steps:
+
+Prerequisites:
+
+Make sure you have Python installed on your Linux system. Most Linux distributions come with Python pre-installed. You can check if Python is installed by running the following command in the terminal:
+
+```python --version ```
+
+If Python is not installed, you can install it using the package manager specific to your Linux distribution (e.g., apt for Ubuntu-based distributions, dnf for Fedora-based distributions).
+
+Clone the Repository:
+
+Open a terminal on your Linux system.
+
+Navigate to the directory where you want to clone the E-Inventory repository.
+
+Run the following command to clone the repository:
+
+``` git clone https://github.com/huizebruin/E-Inventory.git```
+
+Set Up Virtual Environment (Optional but Recommended):
+
+Change your directory to the cloned repository:
+
+```cd E-Inventory```
+
+Create a virtual environment:
+
+``` python3 -m venv venv ```
+
+Activate the virtual environment:
+
+``` source venv/bin/activate``` 
+
+Install Dependencies:
+
+Ensure you are in the root directory of the cloned repository (E-Inventory).
+
+Run the following command to install the required dependencies:
+
+``` pip install -r requirements.txt``` 
+
+Run the Application:
+
+After the dependencies are installed, you can start the application.
+
+In the terminal, run the following command:
+
+```python app.py ```
+
+The E-Inventory application should now be running. Open a web browser and visit http://localhost:5000 to access the application.
+
+Running the Application on Boot (Linux):
+
+To automatically start the E-Inventory application on boot, you can create a systemd service.
+
+Create a new service file using a text editor:
+
+``` sudo nano /etc/systemd/system/e-inventory.service ```
+
+In the text editor, add the following content:
+
+``` 
+[Unit]
+Description=E-Inventory Application
+After=network.target
+
+[Service]
+User=<your_username>
+WorkingDirectory=/path/to/E-Inventory
+ExecStart=/path/to/venv/bin/python /path/to/E-Inventory/app.py
+
+[Install]
+WantedBy=multi-user.target
+Replace <your_username> with your actual username and update /path/to/E-Inventory with the actual path to the E-Inventory directory.
+```
+
+Save the file and exit the text editor.
+
+Start and enable the service:
+
+```sudo systemctl start e-inventory ```
+```sudo systemctl enable e-inventory ```
+
+The E-Inventory application will now start automatically on boot.
+
+This should help you install and run the E-Inventory application on Linux and set it to start automatically on boot. Make sure to follow the prerequisites and steps carefully
+
+
 # Docker image 
 ``` docker pull huizebruin/e-inventory:latest ```
 * Port 5000 extern and 5000 internal ( external port may be changed but the internal not)
