@@ -32,7 +32,7 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 
 ## docker image 
 ``` docker pull huizebruin/e-inventory:latest ```
-* Port 5000 extern and 5000 internal
+* Port 5000 extern and 5000 internal ( external port may be changed but the internal not)
 
 docker info
 
