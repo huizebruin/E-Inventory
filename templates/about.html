@@ -16,5 +16,19 @@
 	<p>For the source code, please visit our <a href="https://github.com/huizebruin/e-inventory">GitHub repository</a>.</p>
 	<p>For more information about our team and our other projects, please visit our website at <a href="https://huizebruin.nl">huizebruin.nl</a>.</p>
 
-  Version {{ version }} installed
+ <table>
+        <tr>
+            <th>Server Info</th>
+            <th>Value</th>
+        </tr>
+        {% for key, value in server_info.items() %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+			
+        </tr>
+        {% endfor %}
+		<td>E-Inventory</td>
+        <td>{{ version }}</td>
+    </table>
 {% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 import time, datetime
+import platform, flask
 
 app = Flask(__name__)
 db_file = 'components.db'
@@ -131,7 +132,12 @@ def notification():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    server_info = {
+        'python_version': platform.python_version(),
+        'flask_version': flask.__version__,
+        'server_os': platform.system(),
+    }
+    return render_template('about.html', server_info=server_info)
 
 @app.context_processor
 def inject_current_year():
