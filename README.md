@@ -1,6 +1,11 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/huizebruin/E-Inventory?style=flat-square)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/huizebruin/E-inventory)
 ![GitHub repo size](https://img.shields.io/github/repo-size/huizebruin/e-inventory)
+![GitHub](https://img.shields.io/github/license/huizebruin/e-inventory)
+![Docker Pulls](https://img.shields.io/docker/pulls/huizebruin/e-inventory)
+![GitHub all releases](https://img.shields.io/github/downloads/huizebruin/e-inventory/total)
+![GitHub issues](https://img.shields.io/github/issues/huizebruin/e-inventory)
+
 <br><br>
 ![image](https://github.com/huizebruin/E-Inventory/blob/c83cb22340e3007ff446083cc1a54936f50b14e8/static/images/icon.png)
 
