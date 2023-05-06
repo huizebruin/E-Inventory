@@ -3,23 +3,27 @@
 
     {% block content %}
     <h5>Add Component</h5>
-    <form method="POST" action="{{ url_for('add_component') }}">
+    <form method="POST" action="/add">
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required>
-        <br>
+        <input type="text" id="name" name="name" required>
+        
         <label for="link">Link:</label>
-        <input type="url" name="link" id="link">
-        <br>
+        <input type="text" id="link" name="link">
+        
         <label for="quantity">Quantity:</label>
-        <input type="number" name="quantity" id="quantity" required>
-        <br>
+        <input type="number" id="quantity" name="quantity" required>
+        
         <label for="location">Location:</label>
-        <input type="text" name="location" id="location" required>
-        <br>
+        <input type="text" id="location" name="location" required>
+        
         <label for="info">Info:</label>
-        <input type="text" name="info" id="info" >
-        <br><br>
-        <input type="submit" value="Add Component">
+        <textarea id="info" name="info" required></textarea>
+        
+        <label for="documentation">Documentation:</label>
+        <input type="text" id="documentation" name="documentation">
+        
+        <button type="submit">Add Component</button>
     </form>
+<br><br>
     {% endblock %}
 

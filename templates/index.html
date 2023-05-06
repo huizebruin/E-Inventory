@@ -24,7 +24,11 @@
                 {% for component in components %}
                 <tr>
                     <td>{{ component[1] }}</td>
-                    <td><a href="{{ component[2] }}" rel="noreferrer" target="_blank">Buy again</a></td>
+                    {% if component[2] %}
+                    <td><a href="{{ component[2] }}" rel="noreferrer" target="_blank"><b>Buy again</b></a></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     {% if component[3] < 5 %}
                     <td style="color:red"><b>{{ component[3] }}</b></td>
                     {% else %}
@@ -36,7 +40,11 @@
                     <td></td>
                     {% endif %}
                     <td><b>{{ component[4] }}</b></td>
-                    <td><a href="{{ component[6] }}" rel="noreferrer" target="_blank">Documentation</a></td>
+                    {% if component[7] %}
+                    <td><a href="{{ component[7] }}" rel="noreferrer" target="_blank">Documentation</a></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td>
                         <div class="btn-group" role="group" aria-label="Actions">
                             <a href="{{ url_for('update_component', id=component[0]) }}" class="btn btn-primary btn-sm mr-1">Edit</a>

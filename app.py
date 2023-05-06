@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
-import time,datetime
-# from flask import jsonify, request
-
+import time, datetime
 
 app = Flask(__name__)
 db_file = 'components.db'
-version = "1.0.5"  # define version variable
+version = "1.0.6"  # define version variable
 
 def create_table():
     conn = sqlite3.connect(db_file)
@@ -18,11 +16,10 @@ def create_table():
                   quantity INTEGER,
                   location TEXT,
                   info TEXT,
+                  documentation TEXT,
                   last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
     conn.commit()
     conn.close()
-
-
 
 @app.route('/')
 def index():
@@ -33,18 +30,16 @@ def index():
     conn.close()
     return render_template('index.html', components=components)
 
-
 def get_version():
-    return (version) # Replace with your version number
+    return version  # Replace with your version number
 
 @app.context_processor
 def inject_version():
     return dict(version=get_version())
-    
+
 @app.route('/')
 def home():
     return render_template('home.html')
-
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_component():
@@ -54,9 +49,12 @@ def add_component():
         quantity = request.form['quantity']
         location = request.form['location']
         info = request.form['info']
+        documentation = request.form['documentation']
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
-        c.execute('INSERT INTO components (name, link, quantity, location, info, last_update) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)', (name, link, quantity, location, info))
+        c.execute(
+            'INSERT INTO components (name, link, quantity, location, info, documentation, last_update) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
+            (name, link, quantity, location, info, documentation))
         conn.commit()
         conn.close()
         return redirect('/')
@@ -76,9 +74,12 @@ def update_component(id):
         quantity = request.form['quantity']
         location = request.form['location']
         info = request.form['info']
+        documentation = request.form['documentation']
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
-        c.execute('UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, last_update=CURRENT_TIMESTAMP WHERE id=?', (name, link, quantity, location, info, id))
+        c.execute(
+            'UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, last_update=CURRENT_TIMESTAMP WHERE id=?',
+            (name, link, quantity, location, info, documentation, id))
         conn.commit()
         conn.close()
         return redirect('/')
@@ -118,11 +119,15 @@ def notification():
     conn = sqlite3.connect(db_file)
     c = conn.cursor()
     # Select components with less than 10 quantity
-    c.execute('SELECT * FROM components WHERE quantity < 10')
-    low_stock_components = c.fetchall()
+    c.execute('SELECT * FROM components WHERE quantity BETWEEN 1 AND 5')
+    low_stock_components_1 = c.fetchall()
+    # Select components with less than 10 quantity
+    c.execute('SELECT * FROM components WHERE quantity BETWEEN 6 AND 9')
+    low_stock_components_2 = c.fetchall()
     conn.close()
 
-    return render_template('notification.html', low_stock_components=low_stock_components)
+    return render_template('notification.html', low_stock_components_1=low_stock_components_1, low_stock_components_2=low_stock_components_2)
+
 
 @app.route('/about')
 def about():
@@ -139,7 +144,8 @@ def low_inventory():
     cursor.execute('SELECT COUNT(*) FROM inventory WHERE quantity < 10')
     num_low_inventory = cursor.fetchone()[0]
     connection.close()
-    # return jsonify(num_low_inventory=num_low_inventory)
+
+
 
 
 
