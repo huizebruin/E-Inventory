@@ -7,7 +7,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/huizebruin/e-inventory)
 
 <br><br>
-![image](https://github.com/huizebruin/E-Inventory/blob/c83cb22340e3007ff446083cc1a54936f50b14e8/static/images/icon.png)
+![image](https://github.com/huizebruin/E-Inventory/blob/f494306491ca0796938ba6f583e34a3dd2663792/static/images/e-inventory-logo.png)
 
 # E-Inventory
 About E-Inventory<br>
