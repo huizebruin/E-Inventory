@@ -244,12 +244,19 @@ Home screen<br>
 ![image](https://user-images.githubusercontent.com/62996429/235307659-3e916f65-7b69-4f7a-b546-b21cc1dca94c.png)
 <br>
 
-Contributing
+## Contributing
+
 We welcome contributions from everyone! Please check out the Contribution Guidelines for more information on how to get involved.
 
-Issues
+## Issues
+
 If you encounter any issues or have suggestions for improvements, please create a new issue.
 
-License
+## License
+
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
+## Show Your Support
+
+⭐️ Star this project if you find it interesting or useful!
 
