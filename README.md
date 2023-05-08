@@ -1,10 +1,12 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/huizebruin/E-Inventory?style=flat-square)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/huizebruin/E-inventory)
 ![GitHub repo size](https://img.shields.io/github/repo-size/huizebruin/e-inventory)
-![GitHub](https://img.shields.io/github/license/huizebruin/e-inventory)
 ![Docker Pulls](https://img.shields.io/docker/pulls/huizebruin/e-inventory)
 ![GitHub all releases](https://img.shields.io/github/downloads/huizebruin/e-inventory/total)
 ![GitHub issues](https://img.shields.io/github/issues/huizebruin/e-inventory)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/huizebruin/e-inventory.svg)](https://github.com/huizebruin/e-inventory/stargazers)
+
 
 <br><br>
 ![image](https://github.com/huizebruin/E-Inventory/blob/f494306491ca0796938ba6f583e34a3dd2663792/static/images/e-inventory-logo.png)
@@ -241,4 +243,13 @@ Home screen<br>
 
 ![image](https://user-images.githubusercontent.com/62996429/235307659-3e916f65-7b69-4f7a-b546-b21cc1dca94c.png)
 <br>
+
+Contributing
+We welcome contributions from everyone! Please check out the Contribution Guidelines for more information on how to get involved.
+
+Issues
+If you encounter any issues or have suggestions for improvements, please create a new issue.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
