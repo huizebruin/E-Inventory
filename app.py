@@ -2,10 +2,12 @@ from flask import Flask, render_template, request, redirect
 import sqlite3
 import time, datetime
 import platform, flask
+import sys
+
 
 app = Flask(__name__)
 db_file = 'components.db'
-version = "1.0.8"  # define version variable
+version = "1.0.9"  # define version variable
 
 def create_table():
     conn = sqlite3.connect(db_file)
