@@ -2,7 +2,7 @@
     {% extends 'base.html' %}
 
     {% block content %}
-    <h5>Add Component</h5>
+    <h5>Add new product to the list</h5>
     <form method="POST" action="/add">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
@@ -22,7 +22,7 @@
         <label for="documentation">Documentation:</label>
         <input type="text" id="documentation" name="documentation">
         
-        <button type="submit">Add Component</button>
+        <button type="submit">Add product</button>
     </form>
 <br><br>
     {% endblock %}

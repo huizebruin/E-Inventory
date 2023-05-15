@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash, send_file
 import sqlite3
-import time, datetime
+import time
+import datetime
 import platform, flask
 import sys
-
+import os
+import requests
 
 app = Flask(__name__)
 db_file = 'components.db'
@@ -153,13 +155,59 @@ def low_inventory():
     num_low_inventory = cursor.fetchone()[0]
     connection.close()
 
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    if request.method == 'POST':
+        if 'export_db' in request.form:
+            export_database()
+            return redirect('/settings')
+    database_size = get_database_size()
+    return render_template('settings.html',  database_size=database_size)
 
+def export_database():
+    try:
+        # Connect to the database
+        conn = sqlite3.connect()
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
 
+        # Export the database file
+        cursor.execute('SELECT * FROM components')  # Replace 'components' with your table name
+        rows = cursor.fetchall()
 
+        # Generate the export file (e.g., CSV)
+        filename = 'database_export.csv'  # Change the file name as needed
+        with open(filename, 'w') as file:
+            # Write the header
+            header = [column[0] for column in cursor.description]
+            file.write(','.join(header) + '\n')
+
+            # Write the data rows
+            for row in rows:
+                file.write(','.join(str(value) for value in row) + '\n')
+
+    finally:
+        # Close the database connection
+        conn.close()
+
+@app.route('/download')
+def download():
+    # Provide the option to download the exported file
+    filename = 'database_export.csv'  # Change this to match the file name used in export_database()
+    return send_file(filename, as_attachment=True)
+
+def get_database_size():
+    db_path = os.path.abspath(db_file)
+    if os.path.exists(db_path):
+        size_bytes = os.path.getsize(db_path)
+        size_mb = size_bytes / (1024 * 1024)  # Convert to megabytes
+        return round(size_mb, 2)
+    else:
+        return 0
 
 
 
 
 if __name__ == '__main__':
     create_table()
-    app.run(host="0.0.0.0", debug=False #debug=True)
+    app.run(host="0.0.0.0")

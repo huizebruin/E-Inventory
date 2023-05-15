@@ -20,10 +20,13 @@
                     <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('add_component') }}">Add Component</a>
+                    <a class="nav-link" href="{{ url_for('add_component') }}">Add product</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('notification') }}">Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('settings') }}">Settings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('about') }}">About</a>
@@ -36,6 +39,7 @@
         {% block content %}
         
         {% endblock %}
+        <br>
     </div>
 
     {% include 'footer.html' %}
