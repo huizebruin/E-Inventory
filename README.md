@@ -22,6 +22,9 @@ The system is designed to make it easy to add and subtract products from your in
 
 E-Inventory is a MIT project and was created with the contribution of Said, Marco, Remco, and Lars.
 
+## Show Your Support
+
+⭐️ Star this project if you find it interesting or useful!
 
 # Installation
 * Clone the repo for helping it getting bigger.
@@ -31,6 +34,15 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 * pip install -r requirements.txt
 * If you already have a database, Move it to the main directory.
 * Run app.py
+
+# Windows exe file on v1.0.10 and later on github.
+
+* Clone the repo for helping it getting bigger.
+* Download the zip from github.
+* Unpack it
+* Run the exe file to start the program
+* Go to <a href="http://127.0.0.1:5000" target="_blank">http://127.0.0.1:5000</a>
+* And go add or delete your products to the database.
 
 # installation on windows.
 
