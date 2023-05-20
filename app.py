@@ -10,8 +10,7 @@ import requests
 
 app = Flask(__name__)
 db_file = 'components.db'
-version = "1.0.10"  # define version variable
-
+version = "1.0.11"  # define version variable
 
 def create_table():
     conn = sqlite3.connect(db_file)
@@ -24,19 +23,30 @@ def create_table():
                   location TEXT,
                   info TEXT,
                   documentation TEXT,
+                  more_info TEXT,
                   last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
     conn.commit()
     conn.close()
 
-
 @app.route('/')
 def index():
     conn = sqlite3.connect(db_file)
+    conn.row_factory = sqlite3.Row  # Set the row_factory to return rows as dictionaries
     c = conn.cursor()
     c.execute('SELECT * FROM components ORDER BY name ASC')
     components = c.fetchall()
     conn.close()
     return render_template('index.html', components=components)
+
+@app.route('/product/<int:id>')
+def product(id):
+    conn = sqlite3.connect(db_file)
+    conn.row_factory = sqlite3.Row  # Set the row_factory to return rows as dictionaries
+    c = conn.cursor()
+    c.execute('SELECT * FROM components WHERE id=?', (id,))
+    component = c.fetchone()
+    conn.close()
+    return render_template('product.html', component=component)
 
 
 def get_version():
@@ -62,21 +72,22 @@ def add_component():
         location = request.form['location']
         info = request.form['info']
         documentation = request.form['documentation']
+        more_info = request.form['more_info']  # New field
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            'INSERT INTO components (name, link, quantity, location, info, documentation, last_update) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
-            (name, link, quantity, location, info, documentation))
+            'INSERT INTO components (name, link, quantity, location, info, documentation, more_info, last_update) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
+            (name, link, quantity, location, info, documentation, more_info))  # Include more_info in the query
         conn.commit()
         conn.close()
         return redirect('/')
     else:
         return render_template('add.html')
 
-
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update_component(id):
     conn = sqlite3.connect(db_file)
+    conn.row_factory = sqlite3.Row  # Set the row_factory to return rows as dictionaries
     c = conn.cursor()
     c.execute('SELECT * FROM components WHERE id=?', (id,))
     component = c.fetchone()
@@ -88,11 +99,12 @@ def update_component(id):
         location = request.form['location']
         info = request.form['info']
         documentation = request.form['documentation']
+        more_info = request.form['more_info']  # New field
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            'UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, last_update=CURRENT_TIMESTAMP WHERE id=?',
-            (name, link, quantity, location, info, documentation, id))
+            'UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, more_info=?, last_update=CURRENT_TIMESTAMP WHERE id=?',
+            (name, link, quantity, location, info, documentation, more_info, id))  # Include more_info in the query
         conn.commit()
         conn.close()
         return redirect('/')
@@ -234,14 +246,6 @@ def get_database_size():
         return round(size_mb, 2)
     else:
         return 0
-
-
-def main():
-    # Your application logic here
-    print("Welcome to e-inventory!")
-
-    # Print the copyright notice
-    print("Copyright (C) 2023 Huizebruin.nl")
 
 
 if __name__ == '__main__':
