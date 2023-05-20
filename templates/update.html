@@ -3,24 +3,28 @@
 
     {% block content %}
     <h5>Update Component</h5>
-    <form method="POST" action="/update/{{ component[0] }}">
+    <form method="POST" action="/update/{{ component.id }}">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ component[1] }}" required>
+        <input type="text" id="name" name="name" value="{{ component.name }}" required>
         
         <label for="link">Link:</label>
-        <input type="text" id="link" name="link" value="{{ component[2] }}">
+        <input type="text" id="link" name="link" value="{{ component.link }}">
         
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" value="{{ component[3] }}" required>
+        <input type="number" id="quantity" name="quantity" value="{{ component.quantity }}" required>
         
         <label for="location">Location:</label>
-        <input type="text" id="location" name="location" value="{{ component[4] }}" required>
+        <input type="text" id="location" name="location" value="{{ component.location }}" required>
         
         <label for="info">Info:</label>
-        <textarea id="info" name="info">{{ component[5] }}</textarea>
+        <textarea id="info" name="info">{{ component.info }}</textarea>
         
         <label for="documentation">Documentation:</label>
-        <input type="text" id="documentation" name="documentation" value="{{ component[6] }}">
+        <input type="text" id="documentation" name="documentation" value="{{ component.documentation }}">
+ 
+        <label for="more_info">More Info:</label>
+        <input type="text" id="more_info" name="more_info" value="{{ component.more_info }}">
+        
         
         <button type="submit">Update Component</button>
     </form>

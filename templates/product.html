@@ -1,0 +1,24 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>{{ component.name }}</h1>
+    <p>Link: <a href="{{ component.link }}" rel="noreferrer" target="_blank">Buy again</a></p>
+    <p>Quantity: {{ component.quantity }}</p>
+    <p>Location: {{ component.location }}</p>
+    <p>Info: {{ component.info }}</p>
+    <p>Documentation: {{ component.documentation }}</p>
+    <p>Last Update: {{ component.last_update }}</p>
+    <p>Barcode: {{ component.barcode }}</p> 
+    <p>More Info:</p>
+    <input type="text" id="more_info" name="more_info" value="{{ component.more_info }}">
+
+
+    <!-- Add more product details as needed -->
+
+    <a href="/">Back to Index</a>
+
+    
+    {% endblock %}

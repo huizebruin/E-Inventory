@@ -13,12 +13,12 @@
       </tr>
       {% for component in components %}
       <tr>
-        <td>{{ component[1] }}</td>
-        <td>{{ component[2] }}</td>
-        <td>{{ component[3] }}</td>
-        <td>{{ component[4] }}</td>
-        {% if component[7] is not none %}
-    <td>{{ component[7] }}</td>
+        <td>{{ component.name }}</td>
+        <td>{{ component.link }}</td>
+        <td>{{ component.quantity }}</td>
+        <td>{{ component.location }}</td>
+        {% if component.documentation is not none %}
+    <td>{{ component.documentation }}</td>
     {% else %}
     <td></td>
     {% endif %}

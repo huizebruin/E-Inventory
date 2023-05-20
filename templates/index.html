@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="search-box">Search products:</label>
-            <input type="text" class="form-control" id="search-box" placeholder="Enter component name">
+            <input type="text" id="search-box" placeholder="Search...">
         </div>
         <table id="myTable" class="table table-striped">
             <thead>
@@ -23,37 +23,37 @@
             <tbody id="component-table">
                 {% for component in components %}
                 <tr>
-                    <td>{{ component[1] }}</td>
-                    {% if component[2] %}
-                    <td><a href="{{ component[2] }}" rel="noreferrer" target="_blank">Buy again</a></td>
+                    <td><a href="{{ url_for('product', id=component.id) }}">{{ component.name }}</a></td> 
+                    {% if component.link %}
+                    <td><a href="{{ component.link }}" rel="noreferrer" target="_blank">Buy again</a></td>
                     {% else %}
                     <td></td>
                     {% endif %}
-                    {% if component[3] < 5 %}
-                    <td style="color:red"><b>{{ component[3] }}</b></td>
+                    {% if component.quantity < 5 %}
+                    <td style="color:red"><b>{{ component.quantity }}</b></td>
                     {% else %}
-                    <td><b>{{ component[3] }}</b></td>
+                    <td><b>{{ component.quantity }}</b></td>
                     {% endif %}
-                    {% if component[5] is not none %}
-                    <td>{{ component[5] }}</td>
+                    {% if component.info is not none %}
+                    <td>{{ component.info }}</td>
                     {% else %}
                     <td></td>
                     {% endif %}
-                    <td><b>{{ component[4] }}</b></td>
-                    {% if component[6] %}
-                    <td><a href="{{ component[6] }}" rel="noreferrer" target="_blank">Documentation</a></td>
+                    <td><b>{{ component.location }}</b></td>
+                    {% if component.documentation %}
+                    <td><a href="{{ component.documentation }}" rel="noreferrer" target="_blank">Documentation</a></td>
                     {% else %}
                     <td></td>
                     {% endif %}
                     <td>
                         <div class="btn-group" role="group" aria-label="Actions">
-                            <a href="{{ url_for('update_component', id=component[0]) }}" class="btn btn-primary btn-sm mr-1">Edit</a>
-                            <a href="{{ url_for('delete_component', id=component[0]) }}" class="btn btn-danger btn-sm mr-1">Delete</a>
-                            <a href="{{ url_for('add_quantity', id=component[0]) }}" class="btn btn-success btn-sm mr-1">+</a>
-                            <a href="{{ url_for('remove_quantity', id=component[0]) }}" class="btn btn-warning btn-sm">-</a>
+                            <a href="{{ url_for('update_component', id=component.id) }}" class="btn btn-primary btn-sm mr-1">Edit</a>
+                            <a href="{{ url_for('delete_component', id=component.id) }}" class="btn btn-danger btn-sm mr-1">Delete</a>
+                            <a href="{{ url_for('add_quantity', id=component.id) }}" class="btn btn-success btn-sm mr-1">+</a>
+                            <a href="{{ url_for('remove_quantity', id=component.id) }}" class="btn btn-warning btn-sm">-</a>
                         </div>
                     </td>
-                </tr>
+                  </tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -116,32 +116,32 @@
         }
     }
 </script>
-<script>
-    // Function to filter the table rows based on search input
-    function filterTable() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("search-box");
-        filter = input.value.toLowerCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
+    <script>
+        // Function to filter the table rows based on search input
+        function filterTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("search-box");
+            filter = input.value.toLowerCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
 
-        // Loop through all table rows and hide those that don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0]; // Assuming the component name is in the first column
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
+            // Loop through all table rows and hide those that don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0]; // Assuming the component name is in the first column
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
             }
         }
-    }
 
-    // Add event listener to the search box
-    document.getElementById("search-box").addEventListener("input", filterTable);
-</script>
+        // Add event listener to the search box
+        document.getElementById("search-box").addEventListener("input", filterTable);
+    </script>
 
 
 
