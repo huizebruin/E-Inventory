@@ -16,7 +16,6 @@
                     <th>Quantity</th>
                     <th>Info</th>
                     <th onclick="sortTable(1)" style="color:blue">Location</th>
-                    <th>Documentation</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -40,11 +39,7 @@
                     <td></td>
                     {% endif %}
                     <td><b>{{ component.location }}</b></td>
-                    {% if component.documentation %}
-                    <td><a href="{{ component.documentation }}" rel="noreferrer" target="_blank">Documentation</a></td>
-                    {% else %}
-                    <td></td>
-                    {% endif %}
+
                     <td>
                         <div class="btn-group" role="group" aria-label="Actions">
                             <a href="{{ url_for('update_component', id=component.id) }}" class="btn btn-primary btn-sm mr-1">Edit</a>
@@ -141,8 +136,9 @@
 
         // Add event listener to the search box
         document.getElementById("search-box").addEventListener("input", filterTable);
-    </script>
-
+    </script><br>
+<p><a href="{{ url_for('database_summary') }}">View Database Summary</a></p>
+<br>
 
 
 

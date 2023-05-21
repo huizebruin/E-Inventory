@@ -1,3 +1,10 @@
+    .form-container {
+    width: 400px; /* Adjust the width value as needed */
+    margin: 0 auto; /* Center the form horizontally */
+    }
+
+
+
 
     .row {
         margin: 0;

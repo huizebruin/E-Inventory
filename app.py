@@ -10,8 +10,7 @@ import requests
 
 app = Flask(__name__)
 db_file = 'components.db'
-version = "1.0.10"  # define version variable
-
+version = "1.0.11"  # define version variable
 
 def create_table():
     conn = sqlite3.connect(db_file)
@@ -24,19 +23,32 @@ def create_table():
                   location TEXT,
                   info TEXT,
                   documentation TEXT,
-                  last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
+                  more_info TEXT,
+                  price REAL,
+                  currency TEXT,
+                  last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')  # Add the "currency" column
     conn.commit()
     conn.close()
-
 
 @app.route('/')
 def index():
     conn = sqlite3.connect(db_file)
+    conn.row_factory = sqlite3.Row  # Set the row_factory to return rows as dictionaries
     c = conn.cursor()
     c.execute('SELECT * FROM components ORDER BY name ASC')
     components = c.fetchall()
     conn.close()
     return render_template('index.html', components=components)
+
+@app.route('/product/<int:id>')
+def product(id):
+    conn = sqlite3.connect(db_file)
+    conn.row_factory = sqlite3.Row  # Set the row_factory to return rows as dictionaries
+    c = conn.cursor()
+    c.execute('SELECT * FROM components WHERE id=?', (id,))
+    component = c.fetchone()
+    conn.close()
+    return render_template('product.html', component=component)
 
 
 def get_version():
@@ -62,21 +74,24 @@ def add_component():
         location = request.form['location']
         info = request.form['info']
         documentation = request.form['documentation']
+        more_info = request.form['more_info']
+        price = request.form['price']  # Get the price value
+        currency = request.form['currency']  # Get the currency value
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            'INSERT INTO components (name, link, quantity, location, info, documentation, last_update) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
-            (name, link, quantity, location, info, documentation))
+            'INSERT INTO components (name, link, quantity, location, info, documentation, more_info, price, currency, last_update) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
+            (name, link, quantity, location, info, documentation, more_info, price, currency))  # Include price and currency in the query
         conn.commit()
         conn.close()
         return redirect('/')
     else:
         return render_template('add.html')
 
-
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update_component(id):
     conn = sqlite3.connect(db_file)
+    conn.row_factory = sqlite3.Row
     c = conn.cursor()
     c.execute('SELECT * FROM components WHERE id=?', (id,))
     component = c.fetchone()
@@ -88,11 +103,14 @@ def update_component(id):
         location = request.form['location']
         info = request.form['info']
         documentation = request.form['documentation']
+        more_info = request.form['more_info']
+        price = request.form['price']  # Get the price value
+        currency = request.form['currency']  # Get the currency value
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            'UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, last_update=CURRENT_TIMESTAMP WHERE id=?',
-            (name, link, quantity, location, info, documentation, id))
+            'UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, more_info=?, price=?, currency=?, last_update=CURRENT_TIMESTAMP WHERE id=?',
+            (name, link, quantity, location, info, documentation, more_info, price, currency, id))  # Include price and currency in the query
         conn.commit()
         conn.close()
         return redirect('/')
@@ -235,13 +253,16 @@ def get_database_size():
     else:
         return 0
 
-
-def main():
-    # Your application logic here
-    print("Welcome to e-inventory!")
-
-    # Print the copyright notice
-    print("Copyright (C) 2023 Huizebruin.nl")
+@app.route('/summary')
+def database_summary():
+    conn = sqlite3.connect(db_file)
+    c = conn.cursor()
+    c.execute('SELECT COUNT(*) FROM components')
+    total_components = c.fetchone()[0]
+    c.execute('SELECT SUM(quantity) FROM components')
+    total_quantity = c.fetchone()[0]
+    conn.close()
+    return render_template('summary.html', total_components=total_components, total_quantity=total_quantity)
 
 
 if __name__ == '__main__':
