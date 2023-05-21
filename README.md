@@ -2,7 +2,7 @@
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/huizebruin/E-inventory)
 ![GitHub repo size](https://img.shields.io/github/repo-size/huizebruin/e-inventory)
 ![Docker Pulls](https://img.shields.io/docker/pulls/huizebruin/e-inventory)
-![GitHub all releases](https://img.shields.io/github/downloads/huizebruin/e-inventory/total)
+[![Download][download-img]][download]
 ![GitHub issues](https://img.shields.io/github/issues/huizebruin/e-inventory)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/huizebruin/e-inventory.svg)](https://github.com/huizebruin/e-inventory/stargazers)
@@ -273,3 +273,5 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 ⭐️ Star this project if you find it interesting or useful!
 
+  [download-img]: https://img.shields.io/github/downloads/huizebruin/e-inventory/total.svg
+  [download]: https://github.com/huizebruin/e-inventory/releases
