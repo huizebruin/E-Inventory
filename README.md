@@ -231,7 +231,7 @@ Once the container is running, you should be able to access the E-Inventory appl
 
 # Features
 
-* exe file for windows so it's easy to start with E-Inventory
+* exe file for windows so it's easy to start with E-Inventory : done 10-05-2023
 * translation to other languages 
 * option to send a mail with notification for low stock off unit's.
 
