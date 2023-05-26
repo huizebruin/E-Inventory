@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <h1>Logbook</h1>
+    <table id="myTable" class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Timestamp</th>
+            <th>Action</th>
+            <th>Details</th>
+        </tr>
+        {% for log_entry in log_entries %}
+        <tr>
+            <td>{{ log_entry['id'] }}</td>
+            <td>{{ log_entry['name'] }}</td>
+            <td>{{ log_entry['timestamp'] }}</td>
+            <td>{{ log_entry['action'] }}</td>
+            <td>{{ log_entry['details'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+
+
+    {% endblock %}

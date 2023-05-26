@@ -1,20 +1,17 @@
+<!-- settings.html -->
 
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block content %}
-<h5>Settings</h5>
-<br>
-    <p>Database Size: {{ database_size }} MB</p>
-    <h6>Export Database</h6>
-    <form method="post" action="/settings">
-        <button type="submit" name="export_db">Export Database</button>
-    </form>
-    
-    <h6>Download Exported File</h6>
-    <a href="/download">Download Exported File</a>
+{% block content %}
+  <h1>Settings</h1>
 
-    
+  <h2>Database Settings</h2>
+  <p>Database Size: {{ database_size }} MB</p>
+  
 
-<br><br>
-    {% endblock %}
 
+  <form method="POST" action="/settings">
+    <button type="submit" class="btn btn-primary" name="export_db">Export Database</button>
+    <a href="/download_db" class="btn btn-primary">Download Database</a>
+  </form>
+{% endblock %}

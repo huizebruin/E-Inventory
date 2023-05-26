@@ -16,21 +16,21 @@
         <label for="location">Location:</label>
         <input type="text" id="location" name="location" required>
         
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <div class="input-group">
-                <div class="input-group-append">
-                    <select class="form-control" name="currency">
-                        <option value="€">€</option>
-                        <option value="$">$</option>
-                    </select>
-                </div>
-                <input type="number" class="form-control" id="price" name="price" >
-                </div>
-        </div>
+<label for="price">Price:</label>
+<div class="input-group">
+    <div class="input-group-append">
+        <select class="form-control" name="currency">
+            <option value="€">€</option>
+            <option value="$">$</option>
+            <option value="£">£</option>
+        </select>
+    </div>
+    <input type="number" class="form-control" id="price" name="price" step="0.01">
+
+</div>
 
         <label for="info">Info: *</label> 
-        <input type="text" id="info" maxlength="12"  name="info" >
+        <input type="text" id="info" maxlength="15"  name="info" >
         
         <label for="documentation">Documentation:</label>
         <input type="text" id="documentation" name="documentation">
@@ -43,7 +43,7 @@
         <button type="submit">Add product</button>
     </form>
 </div>
-<p>* 12 characters max</p>
+<p>* 15 characters max</p>
 
 <br><br>
 {% endblock %}

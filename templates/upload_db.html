@@ -1,0 +1,15 @@
+<!-- upload_db.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Upload Database File</h1>
+  
+  <form method="POST" action="/upload_db" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="db_file">Database File</label>
+      <input type="file" name="db_file" class="form-control-file" id="db_file">
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+{% endblock %}
