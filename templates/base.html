@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/bootstrap.min.css">
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/all.min.css">
     <link rel="icon" type="image/x-icon" href="/static/images/e-inventory-website-favicon-black.png">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('index') }}">&nbsp;&nbsp;E-Inventory</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('index') }}">E-Inventory</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
@@ -20,22 +25,25 @@
                     <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('add_component') }}">Add product</a>
+                    <a class="nav-link" href="{{ url_for('add_component') }}">Add Product</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('notification') }}">Notifications</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logbook') }}">Logbook</a>
+                </li>                
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('settings') }}">Settings</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('about') }}">About</a>
                 </li>
-                
             </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
 <br><br>
     <div class="container mt-4">
         {% block content %}

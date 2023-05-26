@@ -3,8 +3,35 @@
     margin: 0 auto; /* Center the form horizontally */
     }
 
+        .navbar {
+            background-color: #e8e9eb;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+        }
 
+        .navbar-brand {
+            color: #333;
+            font-weight: bold;
+        }
 
+        .navbar-toggler {
+            border-color: #999;
+        }
+
+        .navbar-toggler-icon {
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #666;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover,
+        .navbar-nav .nav-item .nav-link:focus {
+            color: #000;
+            background-color: #f8f9fa;
+        }
 
     .row {
         margin: 0;

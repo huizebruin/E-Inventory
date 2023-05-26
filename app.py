@@ -7,10 +7,21 @@ import flask
 import sys
 import os
 import requests
+import datetime
+import csv
 
 app = Flask(__name__)
 db_file = 'components.db'
-version = "1.0.11"  # define version variable
+version = "1.0.12"  # define version variable
+app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevent client-side JavaScript access to the cookie
+app.config['SESSION_TYPE'] = 'null'  # Disable session management
+
+# Set the directory for uploaded images
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit file size to 16MB
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}  # Set the allowed file extensions
+
 
 def create_table():
     conn = sqlite3.connect(db_file)
@@ -26,9 +37,70 @@ def create_table():
                   more_info TEXT,
                   price REAL,
                   currency TEXT,
-                  last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')  # Add the "currency" column
+                  image_path TEXT,
+                  last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')  # Add the "currency" and "image_path" columns
     conn.commit()
     conn.close()
+
+def insert_log_entry(name, action, details):
+    conn = sqlite3.connect(db_file)
+    c = conn.cursor()
+
+    # Check if the log_entries table exists
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='log_entries'")
+    table_exists = c.fetchone()
+
+    if not table_exists:
+        # Create the log_entries table if it doesn't exist
+        c.execute('''CREATE TABLE log_entries
+                     (id INTEGER PRIMARY KEY,
+                      name TEXT,
+                      action TEXT,
+                      details TEXT,
+                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
+        conn.commit()
+
+    # Insert the log entry
+    c.execute(
+        'INSERT INTO log_entries (name, action, details) VALUES (?, ?, ?)',
+        (name, action, details)
+    )
+    conn.commit()
+    conn.close()
+
+
+@app.route('/upload_db', methods=['POST'])
+def upload_db():
+    db_file = 'components.db'  # Provide the desired name for the database file
+    uploaded_file = request.files['db_file']
+
+    if uploaded_file:
+        # Validate the file type and ensure it matches the expected database schema
+        if uploaded_file.filename.endswith('.db'):
+            # Save the uploaded file to the desired location
+            uploaded_file.save(os.path.join(app.root_path, db_file))
+            flash('Database file uploaded successfully!')
+            return redirect('/')
+        else:
+            flash('Invalid file format. Please upload a valid SQLite database file (.db).')
+            return redirect('/upload_db')
+    else:
+        flash('No file selected for upload. Please try again.')
+        return redirect('/upload_db')
+
+@app.route('/check_db_file')
+def check_db_file():
+    db_file = 'components.db'
+
+    if os.path.exists(db_file):
+        # The database file exists, proceed with normal operations
+        return redirect('/')
+    else:
+        # The database file is missing, prompt the user to upload a file
+        return render_template('upload_db.html')
+
+
+
 
 @app.route('/')
 def index():
@@ -50,6 +122,8 @@ def product(id):
     conn.close()
     return render_template('product.html', component=component)
 
+def format_price(price):
+    return "{:.2f}".format(price)
 
 def get_version():
     return version  # Replace with your version number
@@ -84,9 +158,13 @@ def add_component():
             (name, link, quantity, location, info, documentation, more_info, price, currency))  # Include price and currency in the query
         conn.commit()
         conn.close()
+# Insert a log entry for the added component
+        insert_log_entry(name, 'Add', f'Component "{name}" was added.')
+
         return redirect('/')
     else:
-        return render_template('add.html')
+        return render_template('add.html', format_price=format_price)
+
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update_component(id):
@@ -113,6 +191,9 @@ def update_component(id):
             (name, link, quantity, location, info, documentation, more_info, price, currency, id))  # Include price and currency in the query
         conn.commit()
         conn.close()
+        # Insert a log entry for the updated component
+        insert_log_entry(name, 'Update', f'Component "{name}" was updated.')
+
         return redirect('/')
     else:
         return render_template('update.html', component=component)
@@ -122,9 +203,15 @@ def update_component(id):
 def delete_component(id):
     conn = sqlite3.connect(db_file)
     c = conn.cursor()
+    c.execute('SELECT name FROM components WHERE id=?', (id,))
+    component_name = c.fetchone()[0]
     c.execute('DELETE FROM components WHERE id=?', (id,))
     conn.commit()
     conn.close()
+
+    # Insert a log entry for the deleted component
+    insert_log_entry(component_name, 'Delete', f'Component "{component_name}" was deleted.')
+
     return redirect('/')
 
 
@@ -132,19 +219,32 @@ def delete_component(id):
 def add_quantity(id):
     conn = sqlite3.connect(db_file)
     c = conn.cursor()
+    c.execute('SELECT name FROM components WHERE id=?', (id,))
+    component_name = c.fetchone()[0]
     c.execute('UPDATE components SET quantity=quantity+1 WHERE id=?', (id,))
     conn.commit()
     conn.close()
+
+    # Insert a log entry for the quantity increase
+    insert_log_entry(component_name, 'Quantity Increase', f'Quantity increased for component "{component_name}".')
+
     return redirect('/')
+
 
 
 @app.route('/remove_quantity/<int:id>')
 def remove_quantity(id):
     conn = sqlite3.connect(db_file)
     c = conn.cursor()
+    c.execute('SELECT name FROM components WHERE id=?', (id,))
+    component_name = c.fetchone()[0]
     c.execute('UPDATE components SET quantity=quantity-1 WHERE id=?', (id,))
     conn.commit()
     conn.close()
+
+    # Insert a log entry for the quantity decrease
+    insert_log_entry(component_name, 'Quantity Decrease', f'Quantity decreased for component "{component_name}".')
+
     return redirect('/')
 
 
@@ -204,13 +304,31 @@ def low_inventory():
 def settings():
     if request.method == 'POST':
         if 'export_db' in request.form:
-            export_database()
-            return redirect('/settings')
+            if export_database():
+                return redirect('/download_db')
+            else:
+                flash('An error occurred during database export.', 'error')
+        return redirect('/settings')
+
     database_size = get_database_size()
     return render_template('settings.html', database_size=database_size)
 
 
+@app.route('/download_db')
+def download_db():
+    # Path to the exported database file
+    filename = 'database_export.csv'
+
+    # Check if the file exists
+    if os.path.exists(filename):
+        return send_file(filename, as_attachment=True)
+    else:
+        flash('The exported database file is not available for download.', 'error')
+        return redirect('/settings')
+
+
 def export_database():
+    conn = None
     try:
         # Connect to the database
         conn = sqlite3.connect(db_file)
@@ -222,7 +340,7 @@ def export_database():
         rows = cursor.fetchall()
 
         # Generate the export file (e.g., CSV)
-        filename = 'database_export.csv'  # Change the file name as needed
+        filename = 'db_export_e_inventory.csv'  # Change the file name as needed
         with open(filename, 'w') as file:
             # Write the header
             header = [column[0] for column in cursor.description]
@@ -232,16 +350,22 @@ def export_database():
             for row in rows:
                 file.write(','.join(str(value) for value in row) + '\n')
 
+        return True
+
+    except Exception as e:
+        flash(f'An error occurred during database export: {str(e)}', 'error')
+        return False
+
     finally:
         # Close the database connection
-        conn.close()
+        if conn:
+            conn.close()
 
 
-@app.route('/download')
-def download():
-    # Provide the option to download the exported file
-    filename = 'database_export.csv'  # Change this to match the file name used in export_database()
-    return send_file(filename, as_attachment=True)
+@app.route('/export_db')
+def export_db():
+    export_database()
+    return redirect('/settings')
 
 
 def get_database_size():
@@ -264,6 +388,30 @@ def database_summary():
     conn.close()
     return render_template('summary.html', total_components=total_components, total_quantity=total_quantity)
 
+@app.route('/logbook')
+def logbook():
+    conn = sqlite3.connect(db_file)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute('SELECT * FROM log_entries ORDER BY timestamp DESC')
+    log_entries = c.fetchall()
+    conn.close()
+
+    if not log_entries:
+        # If there are no log entries, render a template with a message
+        return render_template('logbook_empty.html')
+
+    return render_template('logbook.html', log_entries=log_entries)
+
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('error_404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error_500.html'), 500
 
 if __name__ == '__main__':
     create_table()

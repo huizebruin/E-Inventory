@@ -28,7 +28,7 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 
 # Installation
 * Clone the repo for helping it getting bigger.
-* Download the zip from github.
+* Download the zip from github. <a href="https://github.com/huizebruin/E-Inventory/archive/refs/heads/main.zip" target="_blank">Download</a>
 * Unpack it
 * Install pyhon above 3.10
 * pip install -r requirements.txt
@@ -38,7 +38,7 @@ E-Inventory is a MIT project and was created with the contribution of Said, Marc
 # Windows exe file on v1.0.10 and later on github.
 
 * Clone the repo for helping it getting bigger.
-* Download the zip from github.
+* Download the zip from github. <a href="https://github.com/huizebruin/E-Inventory/archive/refs/heads/main.zip" target="_blank">Download</a>
 * Unpack it
 * Run the exe file to start the program
 * Go to <a href="http://127.0.0.1:5000" target="_blank">http://127.0.0.1:5000</a>
@@ -231,7 +231,7 @@ Once the container is running, you should be able to access the E-Inventory appl
 
 # Features
 
-* exe file for windows so it's easy to start with E-Inventory
+* exe file for windows so it's easy to start with E-Inventory : done 10-05-2023
 * translation to other languages 
 * option to send a mail with notification for low stock off unit's.
 
@@ -241,20 +241,31 @@ Once the container is running, you should be able to access the E-Inventory appl
 <br>
 Home screen<br>
 
-![image](https://user-images.githubusercontent.com/62996429/235307589-85000c2c-afc9-416c-a11e-7b3108ba9264.png)
+![image](https://github.com/huizebruin/E-Inventory/assets/62996429/9ee741f8-edc3-48c8-aad0-b65d4c1503ce)
+
+When u click on the product name u get a product information screen
+<br> Product information<br>
+![image](https://github.com/huizebruin/E-Inventory/assets/62996429/8562a4f4-230c-4d97-8efe-8b3001b7b929)
 
 
 <br> Add component screen
 
-![image](https://user-images.githubusercontent.com/62996429/235307618-87b74d35-8f5a-416b-8e51-6072dc232787.png)
+![image](https://github.com/huizebruin/E-Inventory/assets/62996429/b6009676-8321-4458-8d65-35016a45591e)
+
 
 <br> Notification screen<br>
 
-![image](https://user-images.githubusercontent.com/62996429/235307641-de788ad1-4e57-4091-a81e-2b748d175bb1.png)
+![image](https://github.com/huizebruin/E-Inventory/assets/62996429/87f0dc15-fc51-4ee1-a139-9635e6a4ce5a)
+
+<br>logbook screen<br>
+![image](https://github.com/huizebruin/E-Inventory/assets/62996429/e86c4add-e0fc-445c-a915-646cfe1aba60)
+
+<br> Settings screen <br>
+![image](https://github.com/huizebruin/E-Inventory/assets/62996429/9ad31d09-e945-4f73-ad80-1a35a6c4f068)
 
 <br> About screen <br>
+![image](https://github.com/huizebruin/E-Inventory/assets/62996429/b4831015-3ee6-44ae-9af4-49774c37ff9b)
 
-![image](https://user-images.githubusercontent.com/62996429/235307659-3e916f65-7b69-4f7a-b546-b21cc1dca94c.png)
 <br>
 
 ## Contributing
