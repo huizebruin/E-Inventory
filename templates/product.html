@@ -1,58 +1,80 @@
-
-
 {% extends 'base.html' %}
 
 {% block content %}
 
 <h1>{{ component.name }}</h1>
+
 <div style="display: flex">
     <table style="width: 50%;" class="table table-striped">
-    <tr>
-      <td>Link:</td>
-      <td><a href="{{ component.link }}" rel="noreferrer" target="_blank">Buy again</a></td>
-    </tr>
-    <tr>
-      <td>Quantity:</td>
-      <td>{{ component.quantity }}</td>
-    </tr>
-    <tr>
-      <td>Price:</td>
-      <td>{{ component.currency }} <span id="product-price">{{ component.price }}</span></td>
-    </tr>
-    <tr>
-      <td>Location:</td>
-      <td>{{ component.location }}</td>
-    </tr>
-    <tr>
-      <td>Info:</td>
-      <td>{{ component.info }}</td>
-    </tr>
-    <tr>
-      <td>Documentation:</td>
-      <td>{{ component.documentation }}</td>
-    </tr>
-    <tr>
-      <td>Last Update:</td>
-      <td>{{ component.last_update }}</td>
-    </tr>
-    <tr>
-      <td>Barcode:</td>
-      <td>{{ component.barcode }}</td>
-    </tr>
-  </table>
-  <div style="margin-left: 20px;">
-    <img src="path_to_image" alt="Component Image" style="width: 200px; height: 200px;">
-  </div>
+        <!-- Table rows for product details -->
+        <tr>
+            <td>Link:</td>
+            <td><a href="{{ component.link }}" rel="noreferrer" target="_blank">Buy again</a></td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td>{{ component.quantity }}</td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td>{{ component.currency }} <span id="product-price">{{ component.price }}</span></td>
+        </tr>
+        <tr>
+            <td>Location:</td>
+            <td>{{ component.location }}</td>
+        </tr>
+        <tr>
+            <td>Info:</td>
+            <td>{{ component.info }}</td>
+        </tr>
+        <tr>
+            <td>Documentation:</td>
+            <td>{{ component.documentation }}</td>
+        </tr>
+        <tr>
+            <td>Last Update:</td>
+            <td>{{ component.last_update }}</td>
+        </tr>
+        <tr>
+            <td>Barcode:</td>
+            <td>{{ component.barcode }}</td>
+        </tr>
+        <tr>
+            <td>more_info:</td>
+            <td class="more-info-td">{{ component.more_info }}</td>
+        </tr>      
+    </table>
+
+    <!-- Image Box -->
+    <div style="margin-left: 20px;">
+        <img src="path_to_image" alt="Component Image" style="width: 200px; height: 200px;">
+    </div>
 </div>
-<p>More Info:</p>
-<input type="text" id="more_info" name="more_info" value="{{ component.more_info }}">
 
+<!-- More Info -->
+<div>
+    <h6>More Info:</h6>
+    <div class="info-box">
+        <textarea id="more_info" name="more_info" rows="4" cols="50" style="width: 50%">{{ component.more_info }}</textarea>
+    </div>
+</div>
 
+<!-- Log Entries -->
+<h6>Log Entries</h6>
+{% if log_entries %}
+    <ul>
+        {% for log_entry in log_entries %}
+            <li>{{ log_entry['action'] }} - {{ log_entry['details'] }} ({{ log_entry['timestamp'] }})</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No log entries available for this product.</p>
+{% endif %}
 
+<!-- Add more product details as needed -->
 
-    <!-- Add more product details as needed -->
+<a href="/">Back to Index</a>
 
-    <a href="/">Back to Index</a>
 <br><br>
     
-    {% endblock %}
+{% endblock %}

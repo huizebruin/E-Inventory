@@ -1,39 +1,46 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-	<h5>About E-Inventory</h5>
-	<p>E-Inventory is a home inventory system that helps you keep track of all your products. It was developed by Huizebruin using AI, Flask, and Python. With E-Inventory, you can easily see which products you have in stock, where you ordered them from, and even find documentation.</p>
-	<p>The system is designed to make it easy to add and subtract products from your inventory. Additionally, it offers notifications for products that are less than 10 in quantity at their location. Here's a fun message to remind you when it's time to restock your inventory:</p>
-	<blockquote>
-		<p>"Hey there! It's time to restock your inventory! Don't forget to take a look at your E-Inventory to see which products are running low. This way, you can always have enough products on hand to complete any project!"</p>
-	</blockquote>
-	<p>E-Inventory is a MIT project and was created with the contribution of Said, Marco, Remco, and Lars.</p>
-	<div>
-		<img src="/static/images/e-inventory-logo.png" style="width: 200px;"  alt="E-Inventory Logo">
+	<div class="row">
+		<div class="col-md-3">
+			{% include 'sidebar.html' %}
+		</div>
+		<div class="col-md-9">
+			<h5>About E-Inventory</h5>
+			<p>E-Inventory is a home inventory system that helps you keep track of all your products. It was developed by Huizebruin using AI, Flask, and Python. With E-Inventory, you can easily see which products you have in stock, where you ordered them from, and even find documentation.</p>
+			<p>The system is designed to make it easy to add and subtract products from your inventory. Additionally, it offers notifications for products that are less than 10 in quantity at their location. Here's a fun message to remind you when it's time to restock your inventory:</p>
+			<blockquote>
+				<p>"Hey there! It's time to restock your inventory! Don't forget to take a look at your E-Inventory to see which products are running low. This way, you can always have enough products on hand to complete any project!"</p>
+			</blockquote>
+			<p>E-Inventory is a MIT project and was created with the contribution of Said, Marco, Remco, and Lars.</p>
+			<div>
+				<img src="/static/images/e-inventory-logo.png" style="width: 200px;"  alt="E-Inventory Logo">
+			</div>
+			<p>For the source code, please visit our <a href="https://github.com/huizebruin/e-inventory" target="_blank">GitHub repository</a>.</p>
+			<p>For more information about our team and our other projects, please visit our website at <a href="https://huizebruin.nl" target="_blank">huizebruin.nl</a>.</p>
+			<p>For more information about this app, please visit our website at <a href="https://www.e-inventory.nl" target="_blank">E-Inventory.nl</a>. At this moment only Dutch. 17-06-2023 </p>
+			<br>
+			<table>
+				<tr>
+					<th>Server Info</th>
+					<th>Value</th>
+				</tr>
+				{% for key, value in server_info.items() %}
+				<tr>
+					<td>{{ key }}</td>
+					<td>{{ value }}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td>E-Inventory</td>
+					<td>{{ version }}</td>
+				</tr>
+				<tr>
+					<td>E-Inventory GitHub version</td>
+					<td>{{ last_version }}</td>
+				</tr>
+			</table>
+			<br><br>
+		</div>
 	</div>
-	<p>For the source code, please visit our <a href="https://github.com/huizebruin/e-inventory">GitHub repository</a>.</p>
-	<p>For more information about our team and our other projects, please visit our website at <a href="https://huizebruin.nl">huizebruin.nl</a>.</p>
-
-    <table>
-        <tr>
-            <th>Server Info</th>
-            <th>Value</th>
-        </tr>
-        {% for key, value in server_info.items() %}
-        <tr>
-            <td>{{ key }}</td>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-        <tr>
-            <td>E-Inventory</td>
-            <td>{{ version }}</td>
-        </tr>
-        <tr>
-            <td>E-Inventory GitHub version</td>
-            <td>{{ last_version }}</td>
-        </tr>
-    </table>
-	<br><br>
 {% endblock %}

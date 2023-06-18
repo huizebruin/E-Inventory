@@ -221,3 +221,45 @@
         font-size: 10px;
         margin: 0;
     }
+    
+.product-info {
+    display: flex;
+    align-items: center;
+}
+
+.picture-box {
+    margin-right: 20px;
+}
+
+    .more-info-td {
+        max-height: 4em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+    }
+.sidebar {
+  background-color: #e8e9eb;
+  padding: 10px;
+  height: 90vh; /* Set the height to 100% of the viewport height */
+  display: flex; /* Use flexbox to control the layout */
+  flex-direction: column; /* Stack the elements vertically */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Make the list expand to fill the remaining space */
+}
+
+
+
+.sidebar ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+  color: #000;
+  text-decoration: underline;
+}
