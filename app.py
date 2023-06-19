@@ -9,10 +9,11 @@ import os
 import requests
 import datetime
 import csv
+import pytz
 
 app = Flask(__name__)
 db_file = 'components.db'
-version = "1.0.12"  # define version variable
+version = "1.0.13"  # define version variable
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevent client-side JavaScript access to the cookie
 app.config['SESSION_TYPE'] = 'null'  # Disable session management
 
@@ -21,7 +22,6 @@ UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit file size to 16MB
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}  # Set the allowed file extensions
-
 
 def create_table():
     conn = sqlite3.connect(db_file)
@@ -38,9 +38,18 @@ def create_table():
                   price REAL,
                   currency TEXT,
                   image_path TEXT,
-                  last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')  # Add the "currency" and "image_path" columns
+                  last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                  timezone TEXT,
+                  category TEXT)''') 
     conn.commit()
     conn.close()
+
+def get_timezones():
+    all_timezones = pytz.all_timezones
+    timezones = [(tz, False) for tz in all_timezones]
+    # Add Amsterdam as the default time zone
+    timezones.append(("Europe/Amsterdam", True))
+    return timezones
 
 def insert_log_entry(name, action, details):
     conn = sqlite3.connect(db_file)
@@ -57,7 +66,7 @@ def insert_log_entry(name, action, details):
                       name TEXT,
                       action TEXT,
                       details TEXT,
-                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
+                      last_update TIMESTAMP DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')))''')  # Use strftime to format the timestamp
         conn.commit()
 
     # Insert the log entry
@@ -67,6 +76,7 @@ def insert_log_entry(name, action, details):
     )
     conn.commit()
     conn.close()
+
 
 
 @app.route('/upload_db', methods=['POST'])
@@ -101,7 +111,6 @@ def check_db_file():
 
 
 
-
 @app.route('/')
 def index():
     conn = sqlite3.connect(db_file)
@@ -119,8 +128,14 @@ def product(id):
     c = conn.cursor()
     c.execute('SELECT * FROM components WHERE id=?', (id,))
     component = c.fetchone()
+
+    # Fetch the log entries related to the product
+    c.execute('SELECT * FROM log_entries WHERE name=? ORDER BY timestamp DESC', (component['name'],))
+    log_entries = c.fetchall()
+
     conn.close()
-    return render_template('product.html', component=component)
+    return render_template('product.html', component=component, log_entries=log_entries)
+
 
 def format_price(price):
     return "{:.2f}".format(price)
@@ -151,11 +166,13 @@ def add_component():
         more_info = request.form['more_info']
         price = request.form['price']  # Get the price value
         currency = request.form['currency']  # Get the currency value
+        category = request.form['category']
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            'INSERT INTO components (name, link, quantity, location, info, documentation, more_info, price, currency, last_update) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
-            (name, link, quantity, location, info, documentation, more_info, price, currency))  # Include price and currency in the query
+            "INSERT INTO components (name, link, quantity, location, info, documentation, more_info, price, currency, image_path, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (name, link, quantity, location, info, documentation, more_info, price, currency, image_path, category)
+        )
         conn.commit()
         conn.close()
 # Insert a log entry for the added component
@@ -184,11 +201,13 @@ def update_component(id):
         more_info = request.form['more_info']
         price = request.form['price']  # Get the price value
         currency = request.form['currency']  # Get the currency value
+        category = request.form['category']
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            'UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, more_info=?, price=?, currency=?, last_update=CURRENT_TIMESTAMP WHERE id=?',
-            (name, link, quantity, location, info, documentation, more_info, price, currency, id))  # Include price and currency in the query
+            "UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, more_info=?, price=?, currency=?, image_path=?, category=? WHERE id=?",
+            (name, link, quantity, location, info, documentation, more_info, price, currency, image_path, category, id)
+        )
         conn.commit()
         conn.close()
         # Insert a log entry for the updated component
@@ -300,6 +319,7 @@ def low_inventory():
     return render_template('low_inventory.html', num_low_inventory=num_low_inventory)
 
 
+# settings route
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
     if request.method == 'POST':
@@ -308,10 +328,26 @@ def settings():
                 return redirect('/download_db')
             else:
                 flash('An error occurred during database export.', 'error')
+        elif 'timezone' in request.form:
+            timezone = request.form['timezone']
+            update_timezone(timezone)  # Update the time zone setting in the database
+            flash('Time zone updated successfully!', 'success')
         return redirect('/settings')
 
+    conn = sqlite3.connect(db_file)
+    c = conn.cursor()
+    c.execute('SELECT COUNT(*) FROM components')
+    total_components = c.fetchone()[0]
+    c.execute('SELECT SUM(quantity) FROM components')
+    total_quantity = c.fetchone()[0]
+    conn.close()
+
     database_size = get_database_size()
-    return render_template('settings.html', database_size=database_size)
+    timezones = get_timezones()  # Get a list of time zones
+
+    return render_template('settings.html', total_components=total_components, total_quantity=total_quantity, database_size=database_size, timezones=timezones)
+
+
 
 
 @app.route('/download_db')
@@ -387,6 +423,17 @@ def database_summary():
     total_quantity = c.fetchone()[0]
     conn.close()
     return render_template('summary.html', total_components=total_components, total_quantity=total_quantity)
+
+@app.route('/sidebar')
+def database_sidebar():
+    conn = sqlite3.connect(db_file)
+    c = conn.cursor()
+    c.execute('SELECT COUNT(*) FROM components')
+    total_components = c.fetchone()[0]
+    c.execute('SELECT SUM(quantity) FROM components')
+    total_quantity = c.fetchone()[0]
+    conn.close()
+    return render_template('sidebar.html', total_components=total_components, total_quantity=total_quantity)
 
 @app.route('/logbook')
 def logbook():

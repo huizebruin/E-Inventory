@@ -14,6 +14,7 @@
                     <th onclick="sortTable(0)" style="color:blue">Name</th>
                     <th>Link</th>
                     <th>Quantity</th>
+                    <th onclick="sortTable(1)" style="color:blue">Category</th>
                     <th>Info</th>
                     <th onclick="sortTable(1)" style="color:blue">Location</th>
                     <th>Actions</th>
@@ -32,6 +33,11 @@
                     <td style="color:red"><b>{{ component.quantity }}</b></td>
                     {% else %}
                     <td><b>{{ component.quantity }}</b></td>
+                    {% endif %}
+                    {% if component.category is not none %}
+                    <td>{{ component.category }}</td>
+                    {% else %}
+                    <td></td>
                     {% endif %}
                     {% if component.info is not none %}
                     <td>{{ component.info }}</td>
