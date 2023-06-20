@@ -17,6 +17,10 @@ version = "1.0.13"  # define version variable
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevent client-side JavaScript access to the cookie
 app.config['SESSION_TYPE'] = 'null'  # Disable session management
 
+print("E-Inventory")
+print(f"Version: {version}")
+print("© 2023 Huizebruin.nl & E-Inventory.nl")
+
 # Set the directory for uploaded images
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -170,13 +174,13 @@ def add_component():
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            "INSERT INTO components (name, link, quantity, location, info, documentation, more_info, price, currency, image_path, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (name, link, quantity, location, info, documentation, more_info, price, currency, image_path, category)
+            "INSERT INTO components (name, link, quantity, location, info, documentation, more_info, price, currency, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (name, link, quantity, location, info, documentation, more_info, price, currency, category)
         )
         conn.commit()
         conn.close()
 # Insert a log entry for the added component
-        insert_log_entry(name, 'Add', f'Component "{name}" was added.')
+        insert_log_entry(name, 'Add', f'product "{name}" was added.')
 
         return redirect('/')
     else:
@@ -205,13 +209,13 @@ def update_component(id):
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute(
-            "UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, more_info=?, price=?, currency=?, image_path=?, category=? WHERE id=?",
-            (name, link, quantity, location, info, documentation, more_info, price, currency, image_path, category, id)
+            "UPDATE components SET name=?, link=?, quantity=?, location=?, info=?, documentation=?, more_info=?, price=?, currency=?, category=? WHERE id=?",
+            (name, link, quantity, location, info, documentation, more_info, price, currency, category, id)
         )
         conn.commit()
         conn.close()
         # Insert a log entry for the updated component
-        insert_log_entry(name, 'Update', f'Component "{name}" was updated.')
+        insert_log_entry(name, 'Update', f'product "{name}" was updated.')
 
         return redirect('/')
     else:
@@ -229,7 +233,7 @@ def delete_component(id):
     conn.close()
 
     # Insert a log entry for the deleted component
-    insert_log_entry(component_name, 'Delete', f'Component "{component_name}" was deleted.')
+    insert_log_entry(component_name, 'Delete', f'product "{component_name}" was deleted.')
 
     return redirect('/')
 
@@ -245,7 +249,7 @@ def add_quantity(id):
     conn.close()
 
     # Insert a log entry for the quantity increase
-    insert_log_entry(component_name, 'Quantity Increase', f'Quantity increased for component "{component_name}".')
+    insert_log_entry(component_name, 'Quantity Increase', f'Quantity increased for product "{component_name}".')
 
     return redirect('/')
 
@@ -262,7 +266,7 @@ def remove_quantity(id):
     conn.close()
 
     # Insert a log entry for the quantity decrease
-    insert_log_entry(component_name, 'Quantity Decrease', f'Quantity decreased for component "{component_name}".')
+    insert_log_entry(component_name, 'Quantity Decrease', f'Quantity decreased for product "{component_name}".')
 
     return redirect('/')
 
@@ -279,8 +283,7 @@ def notification():
     low_stock_components_2 = c.fetchall()
     conn.close()
 
-    return render_template('notification.html', low_stock_components_1=low_stock_components_1,
-                           low_stock_components_2=low_stock_components_2)
+    return render_template('notification.html', low_stock_components_1=low_stock_components_1, low_stock_components_2=low_stock_components_2)
 
 
 @app.route('/about')
